@@ -13,12 +13,28 @@ from scraper import run_scrape
 PORT = 8000
 BASE_URL = f"http://127.0.0.1:{PORT}"
 TEST_URL = f"{BASE_URL}/test_page.html"
-RUNS = 100
+RUNS = 1000
 SELECTOR = "p.item"
 
 def run_pyweb_benchmark(urls, selector):
     """Runs the benchmark for the pyweb scraper."""
     run_scrape(urls, selector, use_cache=False)
+
+def run_scrapy_benchmark(urls, selector):
+    """Runs the benchmark for the Scrapy spider."""
+    with open('urls.txt', 'w') as f:
+        for url in urls:
+            f.write(f"{url}\n")
+            
+    spider_path = os.path.join(os.path.dirname(__file__), 'scrapy_spider.py')
+    # Construct the command to run scrapy
+    command = [
+        'scrapy', 'runspider', spider_path,
+        '-a', f'selector={selector}',
+        '--nolog'
+    ]
+    subprocess.run(command, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    os.remove('urls.txt')
 
 def main():
     """Main function to run the benchmarks."""
@@ -32,12 +48,18 @@ def main():
         import time
         time.sleep(1)
 
-        # --- Run benchmark ---
+        # --- Run benchmarks ---
         urls = [TEST_URL] * RUNS
-        time = timeit.timeit(lambda: run_pyweb_benchmark(urls, SELECTOR), number=1)
         
+        # pyweb benchmark
+        pyweb_time = timeit.timeit(lambda: run_pyweb_benchmark(urls, SELECTOR), number=1)
+        
+        # Scrapy benchmark
+        scrapy_time = timeit.timeit(lambda: run_scrapy_benchmark(urls, SELECTOR), number=1)
+
         print("\n--- Benchmark Results ---")
-        print(f"pyweb (selectolax, {RUNS} runs): {time:.4f} seconds")
+        print(f"pyweb (selectolax, {RUNS} runs): {pyweb_time:.4f} seconds")
+        print(f"Scrapy ({RUNS} runs): {scrapy_time:.4f} seconds")
 
     finally:
         if server_process:
