@@ -32,6 +32,11 @@ A hyper modern Python web scraper CLI.
 python cli.py scrape https://example.com
 ```
 
+### Scraping Multiple URLs
+```bash
+python cli.py scrape https://example.com https://google.com
+```
+
 ### Scraping with a CSS Selector
 ```bash
 python cli.py scrape https://example.com --selector "h1"
