@@ -1,23 +1,21 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, Form
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 from scraper import scrape_website
 
 app = FastAPI()
+templates = Jinja2Templates(directory="templates")
 
 class ScrapeRequest(BaseModel):
     url: str
     selector: str | None = None
 
-@app.get("/")
-async def root():
-    return {"message": "Welcome to the PyWeb Scraper API"}
+@app.get("/", response_class=HTMLResponse)
+async def root(request: Request):
+    return templates.TemplateResponse(request, "index.html", {})
 
-@app.get("/scrape")
-async def scrape_get(url: str):
-    data = await scrape_website(url)
-    return {"data": data}
-
-@app.post("/scrape")
-async def scrape_post(request: ScrapeRequest):
-    data = await scrape_website(request.url, request.selector)
-    return {"data": data}
+@app.post("/scrape", response_class=HTMLResponse)
+async def scrape_post(request: Request, url: str = Form(...), selector: str = Form(None)):
+    data = await scrape_website(url, selector)
+    return templates.TemplateResponse(request, "index.html", {"results": data})
