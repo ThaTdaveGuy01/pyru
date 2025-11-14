@@ -10,16 +10,15 @@ use std::time::{Duration, Instant};
 #[global_allocator]
 static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
 
-async fn fetch_and_parse(client: &reqwest::Client, url: String, selector_str: String) -> Result<(Vec<String>, Duration), String> {
+async fn fetch_and_parse(client: &reqwest::Client, url: String, selector: Arc<Selector>) -> Result<(Vec<String>, Duration), String> {
     let start_time = Instant::now();
     let response = client.get(&url).send().await.map_err(|e| e.to_string())?;
     let bytes = response.bytes().await.map_err(|e| e.to_string())?;
-    let body = String::from_utf8_lossy(&bytes).to_string();
-    
+    let body = String::from_utf8_lossy(&bytes).into_owned();
+
     let result = tokio::task::spawn_blocking(move || {
         let fragment = Html::parse_document(&body);
-        let sel = Selector::parse(&selector_str).unwrap();
-        fragment.select(&sel)
+        fragment.select(&selector)
             .map(|element| element.text().collect::<String>())
             .collect()
     }).await.unwrap();
@@ -27,15 +26,17 @@ async fn fetch_and_parse(client: &reqwest::Client, url: String, selector_str: St
     Ok((result, start_time.elapsed()))
 }
 
-async fn scrape_all_urls(urls: Vec<String>, selector: String, concurrency: usize) -> PyResult<(Vec<Vec<String>>, Vec<u64>)> {
+async fn scrape_all_urls(urls: Vec<String>, selector_str: String, concurrency: usize) -> PyResult<(Vec<Vec<String>>, Vec<u64>)> {
     let client = reqwest::Client::builder()
         .http1_only()
         .tcp_nodelay(true)
-        .timeout(Duration::from_millis(500)) // Relaxed timeout
-        .connect_timeout(Duration::from_millis(250)) // Relaxed connect timeout
+        .timeout(Duration::from_millis(500))
+        .connect_timeout(Duration::from_millis(250))
         .build()
         .map_err(|e| pyo3::exceptions::PyValueError::new_err(e.to_string()))?;
 
+    // --- OPTIMIZATION: Parse selector once and share it ---
+    let selector = Arc::new(Selector::parse(&selector_str).map_err(|e| pyo3::exceptions::PyValueError::new_err(format!("Invalid CSS selector: {:?}", e)))?);
     let semaphore = Arc::new(Semaphore::new(concurrency));
     
     let futures = urls.into_iter().map(|url| {
@@ -51,8 +52,10 @@ async fn scrape_all_urls(urls: Vec<String>, selector: String, concurrency: usize
 
     let task_results = join_all(futures).await;
 
-    let mut final_results = Vec::new();
-    let mut latencies_ms = Vec::new();
+    // --- OPTIMIZATION: Pre-allocate result vectors ---
+    let mut final_results = Vec::with_capacity(task_results.len());
+    let mut latencies_ms = Vec::with_capacity(task_results.len());
+
     for task_result in task_results {
         match task_result {
             Ok(Ok((elements, duration))) => {
