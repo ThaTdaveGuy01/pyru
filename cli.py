@@ -1,5 +1,6 @@
 import click
 import json
+import asyncio
 from rust_scraper import scrape_urls_concurrent
 
 @click.group()
@@ -7,17 +8,9 @@ def cli():
     """A CLI for scraping websites."""
     pass
 
-@cli.command()
-@click.argument('urls', nargs=-1)
-@click.option('--selector', '-s', help='CSS selector to extract specific elements.')
-@click.option('--output', '-o', type=click.Choice(['json', 'text']), default='text', help='Output format.')
-def scrape(urls, selector, output):
-    """Scrapes one or more websites and extracts data concurrently."""
-    if not urls:
-        click.echo("Please provide at least one URL to scrape.")
-        return
-
-    results = scrape_urls_concurrent(list(urls), selector)
+async def scrape_async(urls, selector, output):
+    """Asynchronous scraping logic."""
+    results = await scrape_urls_concurrent(list(urls), selector)
 
     for i, url in enumerate(urls):
         elements = results[i]
@@ -33,6 +26,17 @@ def scrape(urls, selector, output):
             click.echo(click.style(f"\nResults for {url}", fg='green', bold=True))
             for element in elements:
                 click.echo(f"- {element}")
+
+@cli.command()
+@click.argument('urls', nargs=-1)
+@click.option('--selector', '-s', help='CSS selector to extract specific elements.')
+@click.option('--output', '-o', type=click.Choice(['json', 'text']), default='text', help='Output format.')
+def scrape(urls, selector, output):
+    """Scrapes one or more websites and extracts data concurrently."""
+    if not urls:
+        click.echo("Please provide at least one URL to scrape.")
+        return
+    asyncio.run(scrape_async(urls, selector, output))
 
 if __name__ == '__main__':
     cli()
