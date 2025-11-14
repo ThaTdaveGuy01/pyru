@@ -1,6 +1,6 @@
 # pyweb: The Fastest Python Web Scraper
 
-**pyweb** is a command-line web scraper engineered for one purpose: **to be the fastest Python web scraper in existence**, achieving sub-millisecond latency. It leverages a hyper-optimized, asynchronous Rust core built on `tokio` and a fine-tuned `reqwest` client using `native-tls`. Performance is further enhanced with the `mimalloc` high-performance memory allocator and native CPU-specific compiler optimizations.
+**pyweb** is a command-line web scraper engineered for one purpose: **to be the fastest Python web scraper in existence**, achieving sub-millisecond latency. It leverages a hyper-optimized, asynchronous Rust core built on `tokio` and a fine-tuned `reqwest` client using `native-tls`. Performance is further enhanced with the `mimalloc` high-performance memory allocator, native CPU-specific compiler optimizations, Profile-Guided Optimization (PGO), and the `io_uring` asynchronous I/O interface on Linux.
 
 ## Performance
 
