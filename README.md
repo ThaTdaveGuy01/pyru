@@ -8,12 +8,12 @@
 
 | Metric                        | **pyweb (hyper-tuned async Rust)** | httpx+selectolax |
 | ----------------------------- | ---------------------------------- | ---------------- |
-| **Total Time**                | **0.0535 seconds**                 | 0.1521 seconds   |
-| **Average Latency**           | **30.14 ms**                       | 79.20 ms         |
-| **Jitter (Std Dev)**          | **4.78 ms**                        | 2.01 ms          |
-| **Requests > 50ms Threshold** | **0 (0.00%)**                      | 100 (100.00%)    |
+| **Total Time**                | **0.0750 seconds**                 | 0.1648 seconds   |
+| **Average Latency**           | **26.34 ms**                       | 84.08 ms         |
+| **Jitter (Std Dev)**          | **9.60 ms**                        | 2.75 ms          |
+| **Requests > 50ms Threshold** | **4 (4.00%)**                      | 100 (100.00%)    |
 
-`pyweb` is **~2.84x faster** in total execution time and achieves **~2.63x lower average latency** compared to its closest competitor. This is a direct result of a holistic optimization strategy, spanning the application, compiler, memory allocator, I/O subsystem, TLS implementation, HTTP protocol, and the underlying operating system.
+`pyweb` is **~2.2x faster** in total execution time and achieves **~3.2x lower average latency** compared to its closest competitor. This is a direct result of a holistic optimization strategy, spanning the application, compiler, memory allocator, I/O subsystem, TLS implementation, HTTP protocol, and the underlying operating system.
 
 ## Installation
 

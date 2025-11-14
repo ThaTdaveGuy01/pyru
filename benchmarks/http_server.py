@@ -2,11 +2,11 @@ import asyncio
 from aiohttp import web
 import os
 
+ROOT = os.path.dirname(__file__)
+
 async def handle(request):
-    file_path = os.path.join(os.path.dirname(__file__), 'test_page.html')
-    with open(file_path, 'r') as f:
-        content = f.read()
-    return web.Response(text=content, content_type='text/html')
+    with open(os.path.join(ROOT, "test_page.html"), "r") as f:
+        return web.Response(text=f.read(), content_type='text/html')
 
 async def main():
     app = web.Application()
@@ -15,12 +15,10 @@ async def main():
     await runner.setup()
     site = web.TCPSite(runner, '127.0.0.1', 8000)
     await site.start()
-    print("Server started on http://127.0.0.1:8000")
-    # Keep the server running indefinitely until interrupted
-    await asyncio.Event().wait()
+    await asyncio.Future()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
-        print("Server stopped.")
+        pass
