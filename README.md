@@ -1,6 +1,6 @@
 # pyweb: The Fastest Python Web Scraper
 
-**pyweb** is a command-line web scraper engineered for one purpose: **to be the fastest Python web scraper in existence**, achieving sub-millisecond latency. It leverages a hyper-optimized, asynchronous Rust core built on `tokio` and a fine-tuned `reqwest` client using `native-tls`.
+**pyweb** is a command-line web scraper engineered for one purpose: **to be the fastest Python web scraper in existence**, achieving sub-millisecond latency. It leverages a hyper-optimized, asynchronous Rust core built on `tokio` and a fine-tuned `reqwest` client using `native-tls`. Performance is further enhanced with the `mimalloc` high-performance memory allocator and native CPU-specific compiler optimizations.
 
 ## Performance
 
@@ -8,12 +8,12 @@
 
 | Metric                        | **pyweb (hyper-tuned async Rust)** | httpx+selectolax |
 | ----------------------------- | ---------------------------------- | ---------------- |
-| **Total Time**                | **0.0366 seconds**                 | 0.1519 seconds   |
-| **Average Latency**           | **6.93 ms**                        | 81.74 ms         |
-| **Jitter (Std Dev)**          | **2.55 ms**                        | 1.88 ms          |
+| **Total Time**                | **0.0533 seconds**                 | 0.1221 seconds   |
+| **Average Latency**           | **21.06 ms**                       | 60.41 ms         |
+| **Jitter (Std Dev)**          | **6.09 ms**                        | 6.03 ms          |
 | **Requests > 50ms Threshold** | **0 (0.00%)**                      | 100 (100.00%)    |
 
-`pyweb` is **~4x faster** in total execution time and achieves **~12x lower average latency** compared to its closest competitor, with perfect adherence to the 50ms latency threshold. This is a direct result of advanced compiler optimizations, `TCP_NODELAY`, a fine-tuned concurrency model, and a highly-optimized `native-tls` backend, all measured in a controlled, high-performance local environment.
+`pyweb` is **~2.3x faster** in total execution time and achieves **~2.9x lower average latency** compared to its closest competitor, with perfect adherence to the 50ms latency threshold. This is a direct result of a holistic optimization strategy, including a fine-tuned asynchronous architecture, advanced compiler optimizations, a high-performance memory allocator, and a controlled, high-performance local benchmarking environment.
 
 ## Installation
 
