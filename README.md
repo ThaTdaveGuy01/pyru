@@ -1,6 +1,6 @@
 # pyweb: The Fastest Python Web Scraper
 
-**pyweb** is a command-line web scraper engineered for one purpose: **to be the fastest Python web scraper in existence**, achieving sub-millisecond latency. It leverages a hyper-optimized, asynchronous Rust core built on `tokio` and a fine-tuned `reqwest` client using `native-tls`. Performance is further enhanced with the `mimalloc` high-performance memory allocator, native CPU-specific compiler optimizations, Profile-Guided Optimization (PGO), and the `io_uring` asynchronous I/O interface on Linux.
+**pyweb** is a command-line web scraper engineered for one purpose: **to be the fastest Python web scraper in existence**, achieving sub-millisecond latency. It leverages a hyper-optimized, asynchronous Rust core built on `tokio` and a fine-tuned `reqwest` client using `rustls` to eliminate C FFI overhead. Performance is further enhanced with the `mimalloc` high-performance memory allocator, native CPU-specific compiler optimizations, Profile-Guided Optimization (PGO), and the `io_uring` asynchronous I/O interface on Linux.
 
 ## Performance
 
@@ -8,12 +8,12 @@
 
 | Metric                        | **pyweb (hyper-tuned async Rust)** | httpx+selectolax |
 | ----------------------------- | ---------------------------------- | ---------------- |
-| **Total Time**                | **0.0688 seconds**                 | 0.1604 seconds   |
-| **Average Latency**           | **37.39 ms**                       | 82.89 ms         |
-| **Jitter (Std Dev)**          | **9.22 ms**                        | 2.72 ms          |
-| **Requests > 50ms Threshold** | **0 (0.00%)**                      | 100 (100.00%)    |
+| **Total Time**                | **0.1131 seconds**                 | 0.1439 seconds   |
+| **Average Latency**           | **18.84 ms**                       | 67.27 ms         |
+| **Jitter (Std Dev)**          | **9.89 ms**                        | 6.03 ms          |
+| **Requests > 50ms Threshold** | **1 (1.00%)**                      | 100 (100.00%)    |
 
-`pyweb` is **~2.3x faster** in total execution time and achieves **~2.2x lower average latency** compared to its closest competitor. This is a direct result of a holistic optimization strategy, spanning the application, compiler, memory allocator, I/O subsystem, and the underlying operating system.
+`pyweb` is **~1.27x faster** in total execution time and achieves **~3.57x lower average latency** compared to its closest competitor. This is a direct result of a holistic optimization strategy, spanning the application, compiler, memory allocator, I/O subsystem, TLS implementation, and the underlying operating system.
 
 ## Installation
 
