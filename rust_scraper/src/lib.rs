@@ -29,6 +29,7 @@ async fn fetch_and_parse(client: &reqwest::Client, url: String, selector_str: St
 
 async fn scrape_all_urls(urls: Vec<String>, selector: String, concurrency: usize) -> PyResult<(Vec<Vec<String>>, Vec<u64>)> {
     let client = reqwest::Client::builder()
+        .http1_only()
         .tcp_nodelay(true)
         .timeout(Duration::from_millis(500)) // Relaxed timeout
         .connect_timeout(Duration::from_millis(250)) // Relaxed connect timeout
